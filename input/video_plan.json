@@ -1,0 +1,58 @@
+[
+  {
+    "scene": 1,
+    "narration": "What if humanity discovered a giant structure hidden beneath the Moon's surface?",
+    "duration": 5.0,
+    "image_prompt": "a low-poly Moon surface with eerie dark blues and purples, lit only by faint moonlight, casting long shadows on the dusty lunar regolith; in the foreground, a NASA astronaut's face contorted in terror, eyes wide with horror as they gaze at the discovery",
+    "image": "scene_1.png",
+    "motion": "zoom_in",
+    "shot": "Extreme close-up on a NASA astronaut's face, eyes wide with terror as they stare at the Moon in the background.",
+    "camera_motion": "Static shot, gradual zoom-in to emphasize the astronaut's horror",
+    "lighting": "Low-key lighting, dark blues and purples dominating the color palette, with only faint moonlight illuminating the scene",
+    "mood": "Foreboding, unsettling, sense of impending doom",
+    "color_palette": "#212121, #2F4F7F, #343A40, #455A64",
+    "visual_style": "Low-contrast, muted colors, high level of grain and texture to create a sense of unease"
+  },
+  {
+    "scene": 2,
+    "narration": "Scientists first detected the anomaly in 2041.",
+    "duration": 4,
+    "image_prompt": "A dark, abandoned laboratory with a single computer screen displaying an error message from the 'anomaly' in 2041. The room is filled with dusty equipment and flickering fluorescent lights casting long shadows on walls and floor.",
+    "image": "scene_2.png",
+    "motion": "zoom_in",
+    "shot": "A close-up of an old, dusty computer screen displaying a cryptic error message in a dimly lit laboratory.",
+    "camera_motion": "Static",
+    "lighting": "Low-key with flickering fluorescent lights casting eerie shadows on walls and equipment.",
+    "mood": "Foreboding and ominous",
+    "color_palette": "#3B3F4E, #454F55, #636363",
+    "visual_style": "High-contrast, desaturated colors to convey a sense of unease and decay."
+  },
+  {
+    "scene": 3,
+    "narration": "The object emitted a mysterious signal every twelve hours.",
+    "duration": 4,
+    "image_prompt": "A dimly lit room with a single surveillance monitor displaying static-filled screens, the object at its center casting an eerie glow in a sea of darkness, as if something is waiting patiently for the next signal to be emitted, Stable Diffusion, cinematic, no text, no watermark.",
+    "image": "scene_3.png",
+    "motion": "zoom_in",
+    "shot": "Medium close-up of a surveillance monitor displaying static-filled screens, with the object in focus, shrouded in shadows.",
+    "camera_motion": "Static shot with subtle camera shake to convey unease and uncertainty.",
+    "lighting": "Low-key lighting with dimmed fluorescent bulbs casting an eerie glow.",
+    "mood": "Tense and foreboding, hinting at something sinister lurking beneath the surface.",
+    "color_palette": "#333333 #444444 #555555",
+    "visual_style": "High-contrast monochrome with subtle texture overlays to create a sense of unease."
+  },
+  {
+    "scene": 4,
+    "narration": "A mission was launched to investigate the impossible discovery.",
+    "duration": 4,
+    "image_prompt": "A dark and abandoned research facility with cobweb-covered equipment, flickering fluorescent lights casting an eerie glow on old film reels and dusty cameras. The air is thick with the scent of decay and neglect. In the distance, a figure can be seen in the corner, silhouetted against the dimly lit background. The overall atmosphere is one of foreboding and dread.",
+    "image": "scene_4.png",
+    "motion": "zoom_in",
+    "shot": "Extreme close-up on a vintage camera lens, distorted and out of focus.",
+    "camera_motion": "Static",
+    "lighting": "Flickering fluorescent lights with an eerie blue undertone.",
+    "mood": "Foreboding, ominous, and unsettling.",
+    "color_palette": "#333333, #666666, #999999",
+    "visual_style": "High-contrast, moody, and heavily shadowsed."
+  }
+]

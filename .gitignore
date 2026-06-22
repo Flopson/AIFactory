@@ -1,0 +1,11 @@
+image_ai/venv/
+image_ai/ComfyUI/models/
+image_ai/ComfyUI/output/
+image_ai/ComfyUI/input/
+image_ai/ComfyUI/temp/
+
+assets/audio/scenes/
+assets/images/
+output/
+__pycache__/
+*.pyc

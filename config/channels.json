@@ -1,0 +1,16 @@
+{
+  "space": {
+    "name": "Space Mysteries",
+    "channel_style": "cinematic sci-fi, mysterious, cosmic scale, high retention YouTube documentary",
+    "visual_style": "NASA-inspired cinematic realism, deep space, planets, stars, dramatic lighting",
+    "negative_prompt": "text, watermark, logo, blurry, low quality, bad anatomy, extra fingers, deformed",
+    "voice_model": "en_US-lessac-medium.onnx"
+  },
+  "horror": {
+    "name": "AI Horror Stories",
+    "channel_style": "dark horror, psychological tension, eerie atmosphere, slow suspense",
+    "visual_style": "dark cinematic horror, fog, moonlight, abandoned places, unsettling realism",
+    "negative_prompt": "text, watermark, logo, comedy, cartoon, bright cheerful colors",
+    "voice_model": "en_US-lessac-medium.onnx"
+  }
+}
