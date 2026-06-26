@@ -3,18 +3,10 @@
     {
       "name": "Scientist",
       "type": "human",
-      "appearance": "middle-aged, glasses, professional attire",
-      "clothing": "white lab coat",
-      "important_features": "serious expression",
-      "prompt_fragment": "a middle-aged person in a white lab coat with glasses"
-    },
-    {
-      "name": "Mission Commander",
-      "type": "human",
-      "appearance": "confident, authoritative presence",
-      "clothing": "formal military uniform",
-      "important_features": "strong jawline, piercing eyes",
-      "prompt_fragment": "a confident person in a formal military uniform"
+      "appearance": "average build, glasses, professional attire",
+      "clothing": "lab coat, dress shoes",
+      "important_features": "glasses, short hair",
+      "prompt_fragment": "adult human in lab coat"
     }
   ]
 }

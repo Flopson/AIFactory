@@ -48,30 +48,55 @@ for scene in plan:
         height=HEIGHT
     )
 
-    if motion == "zoom_in":
+    clip = clip.resized(1.12)
 
+    if motion == "zoom_in":
         clip = clip.resized(
-            lambda t: 1 + (0.08 * (t / duration))
+            lambda t: 1.0 + (0.08 * (t / duration))
+        )
+
+        clip = clip.cropped(
+            x_center=clip.w / 2,
+            y_center=clip.h / 2,
+            width=WIDTH,
+            height=HEIGHT
         )
 
     elif motion == "zoom_out":
-
         clip = clip.resized(
             lambda t: 1.08 - (0.08 * (t / duration))
         )
 
-    else:
-
-        clip = clip.resized(
-            lambda t: 1 + (0.04 * (t / duration))
+        clip = clip.cropped(
+            x_center=clip.w / 2,
+            y_center=clip.h / 2,
+            width=WIDTH,
+            height=HEIGHT
         )
 
-    clip = clip.cropped(
-        x_center=WIDTH / 2,
-        y_center=HEIGHT / 2,
-        width=WIDTH,
-        height=HEIGHT
-    )
+    elif motion == "pan_left":
+        clip = clip.cropped(
+            x1=lambda t: int((clip.w - WIDTH) * (t / duration)),
+            y1=(clip.h - HEIGHT) // 2,
+            width=WIDTH,
+            height=HEIGHT
+        )
+
+    elif motion == "pan_right":
+        clip = clip.cropped(
+            x1=lambda t: int((clip.w - WIDTH) * (1 - t / duration)),
+            y1=(clip.h - HEIGHT) // 2,
+            width=WIDTH,
+            height=HEIGHT
+        )
+
+    else:
+        clip = clip.cropped(
+            x_center=clip.w / 2,
+            y_center=clip.h / 2,
+            width=WIDTH,
+            height=HEIGHT
+        )
 
     clip = clip.with_audio(audio)
 
