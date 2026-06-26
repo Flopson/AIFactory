@@ -1,20 +1,36 @@
 {
   "locations": [
     {
-      "name": "Moon's Surface",
-      "appearance": "desolate, rocky terrain with distant mountains and craters",
-      "lighting": "harsh sunlight",
-      "color_palette": "#434A54, #F7F7F7, #666666",
-      "important_features": "cratered landscape, lunar module in the distance",
-      "prompt_fragment": "lunar surface with rocky terrain"
+      "name": "The Moon's Surface",
+      "appearance": "Dusty, cratered terrain with rocky outcroppings and fine dust plumes",
+      "lighting": "Bright lunar sunlight, casting long shadows",
+      "color_palette": "#FFFFFF, #C9C9C9, #A8A8A8",
+      "important_features": "Cratered horizon, airless environment",
+      "prompt_fragment": "Moon's dusty surface with rocky outcroppings"
     },
     {
-      "name": "Mission Control Center",
-      "appearance": "sterile, modern room with rows of computer screens and control panels",
-      "lighting": "soft fluorescent lighting",
-      "color_palette": "#F7F7F7, #333333, #666666",
-      "important_features": "large screens displaying data and video feeds",
-      "prompt_fragment": "mission control center with computer screens"
+      "name": "The Lunar Module's Descent Stage",
+      "appearance": "Metallic, cylindrical shape with landing legs and control panels",
+      "lighting": "Bright lunar sunlight reflecting off metal surfaces",
+      "color_palette": "#C9C9C9, #A8A8A8, #666666",
+      "important_features": "Crushed dust plume beneath the module's shadow",
+      "prompt_fragment": "Lunar module on moon's surface"
+    },
+    {
+      "name": "The Alien Structure's Entrance",
+      "appearance": "Massive, yawning chasm in the lunar regolith with twisted rock formations",
+      "lighting": "Dim, eerie lighting from within the structure",
+      "color_palette": "#A8A8A8, #666666, #333333",
+      "important_features": "Tortured rock formations surrounding the entrance",
+      "prompt_fragment": "Massive alien structure's entrance"
+    },
+    {
+      "name": "The Alien Structure's Passageways",
+      "appearance": "Dark, winding corridors with alien hieroglyphs etched into walls and cryptic consoles",
+      "lighting": "Flickering, eerie lighting from console displays",
+      "color_palette": "#666666, #333333, #000000",
+      "important_features": "Cryptic consoles pulsating with energy; twisted rock formations",
+      "prompt_fragment": "Alien structure's dark passageway"
     }
   ]
 }

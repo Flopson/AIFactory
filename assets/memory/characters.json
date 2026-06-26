@@ -1,28 +1,20 @@
 {
   "characters": [
     {
-      "name": "Dr. Rachel Kim",
+      "name": "Astronaut",
       "type": "human",
-      "appearance": "Asian woman in her mid-40s with short black hair and glasses",
-      "clothing": "NASA jumpsuit",
-      "important_features": "scar above left eyebrow, tattoo of Hubble Space Telescope on right arm",
-      "prompt_fragment": "female scientist in NASA suit"
+      "appearance": "Spacesuit with helmet and life support systems",
+      "clothing": "White spacesuits, silver helmets, and gray gloves",
+      "important_features": "Reflective visors, oxygen tanks on back",
+      "prompt_fragment": "Human in white spacesuit on moon's surface"
     },
     {
-      "name": "Commander Jack Harris",
-      "type": "human",
-      "appearance": "African American man in his late 50s with short graying hair and mustache",
-      "clothing": "NASA jumpsuit",
-      "important_features": "gold wedding band on left hand, wear-lined face",
-      "prompt_fragment": "male commander in NASA suit"
-    },
-    {
-      "name": "Ava (AI voice assistant)",
-      "type": "AI",
-      "appearance": "no visible appearance",
-      "clothing": "none",
-      "important_features": "smooth, androgynous tone",
-      "prompt_fragment": "female AI voice"
+      "name": "Alien Occupant",
+      "type": "alien",
+      "appearance": "Tall, slender creature with long limbs and angular features",
+      "clothing": "None",
+      "important_features": "Glittering, crystalline skin; large, black eyes",
+      "prompt_fragment": "Tall alien in dark, twisted corridors"
     }
   ]
 }

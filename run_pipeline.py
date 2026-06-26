@@ -4,6 +4,7 @@ from pathlib import Path
 BASE = Path(__file__).parent
 
 steps = [
+    "core.writer",
     "core.script_splitter",
     "core.memory_builder",
     "core.scene_planner",

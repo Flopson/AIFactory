@@ -1,16 +1,28 @@
 {
   "objects": [
     {
-      "name": "Lunar Module (LM-1)",
-      "appearance": "silver, cylindrical spacecraft with antennae and solar panels",
-      "important_features": "cratered landing site, LM-1 logo on side",
-      "prompt_fragment": "lunar module with antennae and solar panels"
+      "name": "Lunar Module",
+      "appearance": "Metallic, cylindrical shape with landing legs and control panels",
+      "important_features": "Crushed dust plume beneath the module's shadow; reflective visors on astronaut helmets",
+      "prompt_fragment": "Lunar module on moon's surface"
     },
     {
-      "name": "Signal Emitter (SE-001)",
-      "appearance": "unidentified, spherical structure emitting a mysterious signal",
-      "important_features": "glowing blue energy signature",
-      "prompt_fragment": "glowing sphere with blue energy signature"
+      "name": "Alien Structure's Entrance",
+      "appearance": "Massive, yawning chasm in the lunar regolith with twisted rock formations",
+      "important_features": "Tortured rock formations surrounding the entrance; dark, twisted corridors",
+      "prompt_fragment": "Massive alien structure's entrance"
+    },
+    {
+      "name": "Alien Hieroglyphs",
+      "appearance": "Ethereal, glowing symbols etched into the walls of the alien structure",
+      "important_features": "Cryptic meaning; pulsating energy emanating from nearby consoles",
+      "prompt_fragment": "Glowing alien hieroglyphs on dark wall"
+    },
+    {
+      "name": "Lunar Rovers (not mentioned, but implied)",
+      "appearance": "Compact, wheeled vehicles with solar panels and life support systems",
+      "important_features": "None explicitly mentioned; implied by astronauts' presence on moon's surface",
+      "prompt_fragment": "Lunar rover on moon's surface"
     }
   ]
 }

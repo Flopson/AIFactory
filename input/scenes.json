@@ -1,26 +1,32 @@
 [
   {
     "scene": 1,
-    "text": "What if humanity discovered a giant structure hidden beneath the Moon's surface?",
-    "image_prompt": "cinematic detailed illustration of: What if humanity discovered a giant structure hidden beneath the Moon's surface?",
+    "text": "As we pierce through the inky blackness of space, our gaze falls upon the moon's cratered visage, a constant sentinel in the celestial expanse. But what if I told you that beneath its dusty, airless surface lies a secret so monumental, it threatens to upend our very understanding of existence? A colossal alien structure, hidden from prying eyes for eons, now stirs, whispering an ancient language only the cosmos can decipher.",
+    "image_prompt": "cinematic detailed illustration of: As we pierce through the inky blackness of space, our gaze falls upon the moon's cratered visage, a constant sentinel in the celestial expanse. But what if I told you that beneath its dusty, airless surface lies a secret so monumental, it threatens to upend our very understanding of existence? A colossal alien structure, hidden from prying eyes for eons, now stirs, whispering an ancient language only the cosmos can decipher.",
     "duration": null
   },
   {
     "scene": 2,
-    "text": "Scientists first detected the anomaly in 2041.",
-    "image_prompt": "cinematic detailed illustration of: Scientists first detected the anomaly in 2041.",
+    "text": "The lunar module's descent stage crunches onto the moon's surface, spewing a plume of fine dust as the crew steps out into the unforgiving environment. Their footprints mark the pristine terrain like scars on a forgotten fresco. The horizon stretches before them, curving slightly due to the moon's curvature, an eerie reminder that they are not alone in this desolate, airless realm.",
+    "image_prompt": "cinematic detailed illustration of: The lunar module's descent stage crunches onto the moon's surface, spewing a plume of fine dust as the crew steps out into the unforgiving environment. Their footprints mark the pristine terrain like scars on a forgotten fresco. The horizon stretches before them, curving slightly due to the moon's curvature, an eerie reminder that they are not alone in this desolate, airless realm.",
     "duration": null
   },
   {
     "scene": 3,
-    "text": "The object emitted a mysterious signal every twelve hours.",
-    "image_prompt": "cinematic detailed illustration of: The object emitted a mysterious signal every twelve hours.",
+    "text": "In the heart of one such crater lies an entrance, its maw yawning open like a chasm into the underworld. The walls surrounding it bear testament to eons of geological upheaval – twisted rock formations, tortured by unseen forces, now whisper secrets only the moon's dusty silence can hold. As our astronauts draw closer, an unsettling stillness pervades the air.",
+    "image_prompt": "cinematic detailed illustration of: In the heart of one such crater lies an entrance, its maw yawning open like a chasm into the underworld. The walls surrounding it bear testament to eons of geological upheaval – twisted rock formations, tortured by unseen forces, now whisper secrets only the moon's dusty silence can hold. As our astronauts draw closer, an unsettling stillness pervades the air.",
     "duration": null
   },
   {
     "scene": 4,
-    "text": "A mission was launched to investigate the impossible discovery.",
-    "image_prompt": "cinematic detailed illustration of: A mission was launched to investigate the impossible discovery.",
+    "text": "Within this labyrinthine complex, eerie artifacts dot the passageways like a macabre shrine: alien hieroglyphs etched into walls that shudder with each lunar quake; a maze of cryptic consoles pulsating with energy that defies human comprehension. As we delve deeper, an unsettling truth begins to take hold – this structure was never built for us.",
+    "image_prompt": "cinematic detailed illustration of: Within this labyrinthine complex, eerie artifacts dot the passageways like a macabre shrine: alien hieroglyphs etched into walls that shudder with each lunar quake; a maze of cryptic consoles pulsating with energy that defies human comprehension. As we delve deeper, an unsettling truth begins to take hold – this structure was never built for us.",
+    "duration": null
+  },
+  {
+    "scene": 5,
+    "text": "And yet, the moon's pale light casts long shadows across the alien architecture, betraying the presence of something else – an occupant who has lain dormant, awaiting humanity's discovery like a patient predator. The moon, once our celestial companion, now stands as a gateway to unfathomable horrors that lurk in the dark recesses of space, waiting to reclaim what is rightfully theirs.",
+    "image_prompt": "cinematic detailed illustration of: And yet, the moon's pale light casts long shadows across the alien architecture, betraying the presence of something else – an occupant who has lain dormant, awaiting humanity's discovery like a patient predator. The moon, once our celestial companion, now stands as a gateway to unfathomable horrors that lurk in the dark recesses of space, waiting to reclaim what is rightfully theirs.",
     "duration": null
   }
 ]

@@ -75,20 +75,42 @@ for scene in plan:
         )
 
     elif motion == "pan_left":
-        clip = clip.cropped(
-            x1=lambda t: int((clip.w - WIDTH) * (t / duration)),
-            y1=(clip.h - HEIGHT) // 2,
-            width=WIDTH,
-            height=HEIGHT
-        )
+        horizontal_space = max(0, clip.w - WIDTH)
+        vertical_space = max(0, clip.h - HEIGHT)
+
+        def pan_left_position(t):
+            progress = min(max(t / duration, 0), 1)
+
+            return (
+                -horizontal_space * progress,
+                -vertical_space / 2,
+            )
+
+        clip = clip.with_position(pan_left_position)
+
+        clip = CompositeVideoClip(
+            [clip],
+            size=(WIDTH, HEIGHT),
+        ).with_duration(duration)
 
     elif motion == "pan_right":
-        clip = clip.cropped(
-            x1=lambda t: int((clip.w - WIDTH) * (1 - t / duration)),
-            y1=(clip.h - HEIGHT) // 2,
-            width=WIDTH,
-            height=HEIGHT
-        )
+        horizontal_space = max(0, clip.w - WIDTH)
+        vertical_space = max(0, clip.h - HEIGHT)
+
+        def pan_right_position(t):
+            progress = min(max(t / duration, 0), 1)
+
+            return (
+                -horizontal_space * (1 - progress),
+                -vertical_space / 2,
+            )
+
+        clip = clip.with_position(pan_right_position)
+
+        clip = CompositeVideoClip(
+            [clip],
+            size=(WIDTH, HEIGHT),
+        ).with_duration(duration)
 
     else:
         clip = clip.cropped(
