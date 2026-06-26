@@ -5,6 +5,7 @@ BASE = Path(__file__).parent
 
 steps = [
     "core.script_splitter",
+    "core.character_manager",
     "core.scene_planner",
     "core.audio_generator",
     "core.image_generator",

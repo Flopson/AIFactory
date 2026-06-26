@@ -1,9 +1,47 @@
 import json
 import urllib.request
+from pathlib import Path
 
+BASE = Path(__file__).resolve().parent.parent
 
 OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
 MODEL = "llama3.1:8b"
+
+CHARACTERS_PATH = BASE / "assets" / "characters" / "characters.json"
+
+
+def load_json(path: Path, fallback: dict) -> dict:
+    if not path.exists():
+        return fallback
+
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return fallback
+
+
+def load_character_context() -> str:
+    data = load_json(CHARACTERS_PATH, {"characters": []})
+    characters = data.get("characters", [])
+
+    if not characters:
+        return "No recurring characters defined."
+
+    lines = []
+
+    for character in characters:
+        lines.append(
+            f"""
+Name: {character.get("name", "Unknown")}
+Type: {character.get("type", "Unknown")}
+Appearance: {character.get("appearance", "")}
+Clothing: {character.get("clothing", "")}
+Important features: {character.get("important_features", "")}
+Prompt fragment: {character.get("prompt_fragment", "")}
+""".strip()
+        )
+
+    return "\n\n".join(lines)
 
 
 def ask_ollama(prompt: str) -> str:
@@ -22,7 +60,7 @@ def ask_ollama(prompt: str) -> str:
         headers={"Content-Type": "application/json"}
     )
 
-    with urllib.request.urlopen(req, timeout=120) as response:
+    with urllib.request.urlopen(req, timeout=180) as response:
         result = json.loads(response.read().decode("utf-8"))
 
     return result["response"]
@@ -45,18 +83,33 @@ def fallback_director(scene_text: str) -> dict:
 
 
 def direct_scene(scene_text: str, channel_style: str = "cinematic sci-fi") -> dict:
+    character_context = load_character_context()
+
     prompt = f"""
-You are an expert movie director and AI image prompt engineer.
+SYSTEM:
+You are an award-winning movie director, cinematographer, and Stable Diffusion prompt engineer.
 
-Create visual direction for this narration scene.
+ROLE:
+Your job is to create visual direction for one scene of an AI-generated YouTube video.
 
-Channel style:
+CHANNEL STYLE:
 {channel_style}
 
-Scene narration:
+STORY CONTINUITY RULES:
+All scenes belong to the same story.
+Keep visual consistency.
+If recurring characters exist, preserve their appearance exactly.
+Do not randomly change age, hair, clothing, species, or important visual features.
+
+CHARACTERS:
+{character_context}
+
+CURRENT SCENE:
 {scene_text}
 
-Return ONLY valid JSON with these exact keys:
+OUTPUT FORMAT:
+Return ONLY valid JSON with exactly these keys:
+
 {{
   "shot": "...",
   "camera_motion": "...",
@@ -67,11 +120,15 @@ Return ONLY valid JSON with these exact keys:
   "image_prompt": "..."
 }}
 
-Rules:
+RULES:
 - image_prompt must be detailed and usable for Stable Diffusion.
-- no text, no watermark, no logo.
-- keep it cinematic.
-- do not include explanations.
+- image_prompt must include character continuity if relevant.
+- image_prompt must not contain dialogue.
+- image_prompt must not contain text overlays.
+- image_prompt must include: no text, no watermark, no logo.
+- Keep it cinematic and visually coherent.
+- Do not include markdown.
+- Do not include explanations.
 """
 
     try:
