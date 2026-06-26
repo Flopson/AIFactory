@@ -1,3 +1,16 @@
 {
-  "objects": []
+  "objects": [
+    {
+      "name": "Lunar Module (LM-1)",
+      "appearance": "silver, cylindrical spacecraft with antennae and solar panels",
+      "important_features": "cratered landing site, LM-1 logo on side",
+      "prompt_fragment": "lunar module with antennae and solar panels"
+    },
+    {
+      "name": "Signal Emitter (SE-001)",
+      "appearance": "unidentified, spherical structure emitting a mysterious signal",
+      "important_features": "glowing blue energy signature",
+      "prompt_fragment": "glowing sphere with blue energy signature"
+    }
+  ]
 }

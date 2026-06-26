@@ -9,28 +9,95 @@ OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
 MODEL = "llama3.1:8b"
 
 
-def load_character_context() -> str:
+def load_memory_context() -> str:
     memory = Memory()
+
+    sections = []
+
     characters = memory.characters.get("characters", [])
+    if characters:
+        character_lines = []
 
-    if not characters:
-        return "No recurring characters defined."
+        for character in characters:
+            character_lines.append(
+                (
+                    f"Name: {character.get('name', 'Unknown')}\n"
+                    f"Type: {character.get('type', '')}\n"
+                    f"Appearance: {character.get('appearance', '')}\n"
+                    f"Clothing: {character.get('clothing', '')}\n"
+                    f"Important features: "
+                    f"{character.get('important_features', '')}\n"
+                    f"Prompt fragment: "
+                    f"{character.get('prompt_fragment', '')}"
+                )
+            )
 
-    lines = []
-
-    for character in characters:
-        lines.append(
-            f"""
-Name: {character.get("name", "Unknown")}
-Type: {character.get("type", "Unknown")}
-Appearance: {character.get("appearance", "")}
-Clothing: {character.get("clothing", "")}
-Important features: {character.get("important_features", "")}
-Prompt fragment: {character.get("prompt_fragment", "")}
-""".strip()
+        sections.append(
+            "CHARACTERS:\n" + "\n\n".join(character_lines)
         )
 
-    return "\n\n".join(lines)
+    locations = memory.locations.get("locations", [])
+    if locations:
+        location_lines = []
+
+        for location in locations:
+            location_lines.append(
+                (
+                    f"Name: {location.get('name', 'Unknown')}\n"
+                    f"Appearance: {location.get('appearance', '')}\n"
+                    f"Lighting: {location.get('lighting', '')}\n"
+                    f"Color palette: {location.get('color_palette', '')}\n"
+                    f"Important features: "
+                    f"{location.get('important_features', '')}\n"
+                    f"Prompt fragment: "
+                    f"{location.get('prompt_fragment', '')}"
+                )
+            )
+
+        sections.append(
+            "LOCATIONS:\n" + "\n\n".join(location_lines)
+        )
+
+    objects = memory.objects.get("objects", [])
+    if objects:
+        object_lines = []
+
+        for item in objects:
+            object_lines.append(
+                (
+                    f"Name: {item.get('name', 'Unknown')}\n"
+                    f"Appearance: {item.get('appearance', '')}\n"
+                    f"Important features: "
+                    f"{item.get('important_features', '')}\n"
+                    f"Prompt fragment: "
+                    f"{item.get('prompt_fragment', '')}"
+                )
+            )
+
+        sections.append(
+            "IMPORTANT OBJECTS:\n" + "\n\n".join(object_lines)
+        )
+
+    story = memory.story
+
+    if story:
+        rules = story.get("world_rules", [])
+        formatted_rules = "\n".join(f"- {rule}" for rule in rules)
+
+        sections.append(
+            (
+                "STORY:\n"
+                f"Summary: {story.get('summary', '')}\n"
+                f"Visual continuity: "
+                f"{story.get('visual_continuity', '')}\n"
+                f"World rules:\n{formatted_rules}"
+            )
+        )
+
+    if not sections:
+        return "No story memory has been defined."
+
+    return "\n\n".join(sections)
 
 
 def ask_ollama(prompt: str) -> str:
@@ -72,7 +139,7 @@ def fallback_director(scene_text: str) -> dict:
 
 
 def direct_scene(scene_text: str, channel_style: str = "cinematic sci-fi") -> dict:
-    character_context = load_character_context()
+    memory_context = load_memory_context()
 
     prompt = f"""
 SYSTEM:
@@ -90,8 +157,8 @@ Keep visual consistency.
 If recurring characters exist, preserve their appearance exactly.
 Do not randomly change age, hair, clothing, species, or important visual features.
 
-CHARACTERS:
-{character_context}
+STORY BIBLE:
+{memory_context}
 
 CURRENT SCENE:
 {scene_text}

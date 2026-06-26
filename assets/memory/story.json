@@ -1,1 +1,8 @@
-{}
+{
+  "summary": "Humanity discovers a giant structure hidden beneath the Moon's surface, sparking a mission to investigate.",
+  "visual_continuity": "consistent use of NASA jumpsuits and sterile environments",
+  "world_rules": [
+    "The signal emitted by the lunar anomaly occurs every twelve hours.",
+    "The mission is crewed by experts in their fields, with Commander Harris as the leader."
+  ]
+}

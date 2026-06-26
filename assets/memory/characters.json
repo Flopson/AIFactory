@@ -1,20 +1,28 @@
 {
   "characters": [
     {
-      "name": "Scientist",
+      "name": "Dr. Rachel Kim",
       "type": "human",
-      "appearance": "average height and build, middle-aged",
-      "clothing": "standard white lab coat with name tag",
-      "important_features": "lenses on glasses, curly brown hair",
-      "prompt_fragment": "female scientist in a lab coat, mid 40s"
+      "appearance": "Asian woman in her mid-40s with short black hair and glasses",
+      "clothing": "NASA jumpsuit",
+      "important_features": "scar above left eyebrow, tattoo of Hubble Space Telescope on right arm",
+      "prompt_fragment": "female scientist in NASA suit"
     },
     {
-      "name": "Mission Commander",
+      "name": "Commander Jack Harris",
       "type": "human",
-      "appearance": "tall and authoritative, early 50s",
-      "clothing": "military-style uniform with insignia",
-      "important_features": "recognition pin on lapel, sharp jawline",
-      "prompt_fragment": "male mission commander in a military uniform"
+      "appearance": "African American man in his late 50s with short graying hair and mustache",
+      "clothing": "NASA jumpsuit",
+      "important_features": "gold wedding band on left hand, wear-lined face",
+      "prompt_fragment": "male commander in NASA suit"
+    },
+    {
+      "name": "Ava (AI voice assistant)",
+      "type": "AI",
+      "appearance": "no visible appearance",
+      "clothing": "none",
+      "important_features": "smooth, androgynous tone",
+      "prompt_fragment": "female AI voice"
     }
   ]
 }
