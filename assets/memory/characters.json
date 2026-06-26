@@ -1,0 +1,20 @@
+{
+  "characters": [
+    {
+      "name": "Scientist",
+      "type": "human",
+      "appearance": "average height and build, middle-aged",
+      "clothing": "standard white lab coat with name tag",
+      "important_features": "lenses on glasses, curly brown hair",
+      "prompt_fragment": "female scientist in a lab coat, mid 40s"
+    },
+    {
+      "name": "Mission Commander",
+      "type": "human",
+      "appearance": "tall and authoritative, early 50s",
+      "clothing": "military-style uniform with insignia",
+      "important_features": "recognition pin on lapel, sharp jawline",
+      "prompt_fragment": "male mission commander in a military uniform"
+    }
+  ]
+}

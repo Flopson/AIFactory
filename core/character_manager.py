@@ -1,11 +1,11 @@
 import json
 import urllib.request
 from pathlib import Path
+from core.memory import Memory
 
 BASE = Path(__file__).resolve().parent.parent
 
 SCRIPT_PATH = BASE / "input" / "script.txt"
-OUTPUT_PATH = BASE / "assets" / "characters" / "characters.json"
 
 OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
 MODEL = "llama3.1:8b"
@@ -89,13 +89,11 @@ def main():
     script = SCRIPT_PATH.read_text(encoding="utf-8")
     characters = extract_characters(script)
 
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(
-        json.dumps(characters, indent=2, ensure_ascii=False),
-        encoding="utf-8"
-    )
+    memory = Memory()
+    memory.characters = characters
+    memory.save()
 
-    print(f"Wygenerowano characters.json: {OUTPUT_PATH}")
+    print("Zapisano characters.json do assets/memory/")
 
 
 if __name__ == "__main__":

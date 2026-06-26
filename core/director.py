@@ -1,28 +1,17 @@
 import json
 import urllib.request
 from pathlib import Path
+from core.memory import Memory
 
 BASE = Path(__file__).resolve().parent.parent
 
 OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
 MODEL = "llama3.1:8b"
 
-CHARACTERS_PATH = BASE / "assets" / "characters" / "characters.json"
-
-
-def load_json(path: Path, fallback: dict) -> dict:
-    if not path.exists():
-        return fallback
-
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return fallback
-
 
 def load_character_context() -> str:
-    data = load_json(CHARACTERS_PATH, {"characters": []})
-    characters = data.get("characters", [])
+    memory = Memory()
+    characters = memory.characters.get("characters", [])
 
     if not characters:
         return "No recurring characters defined."
