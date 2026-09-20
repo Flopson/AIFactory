@@ -70,6 +70,58 @@ def clean_script(text: str) -> str:
 
     return cleaned.strip()
 
+def generate_outline(
+    topic: str,
+    channel: dict,
+    language: str,
+    scene_count: int,
+    model: str,
+) -> list[str]:
+    prompt = f"""
+Create an outline for a YouTube documentary.
+
+CHANNEL:
+{channel.get("channel_style", "")}
+
+TOPIC:
+{topic}
+
+REQUIREMENTS:
+- Language: {language}
+- Exactly {scene_count} scenes
+- One short sentence describing each scene
+- Number the scenes from 1 to {scene_count}
+- Begin with a strong hook
+- Build curiosity and tension
+- End with a satisfying conclusion
+- Output only the numbered outline
+"""
+
+    raw_outline = ask_ollama(
+        prompt,
+        model=model,
+        temperature=0.6,
+    )
+
+    outline = []
+
+    for line in raw_outline.splitlines():
+        cleaned = re.sub(
+            r"^\s*(?:\d+[\.\):\-]|[-*])\s*",
+            "",
+            line,
+        ).strip()
+
+        if cleaned:
+            outline.append(cleaned)
+
+    if len(outline) < scene_count:
+        raise ValueError(
+            f"Ollama wygenerowała tylko {len(outline)} "
+            f"punktów planu zamiast {scene_count}."
+        )
+
+    return outline[:scene_count]
 
 def generate_script(
     topic: str,
@@ -78,87 +130,142 @@ def generate_script(
 ) -> str:
     language = settings.get("language", "English")
     target_minutes = int(settings.get("target_minutes", 10))
-    words_per_minute = int(settings.get("words_per_minute", 145))
+    words_per_minute = int(settings.get("words_per_minute", 175))
     words_per_scene = int(settings.get("words_per_scene", 110))
     model = settings.get("ollama_model", "llama3.1:8b")
 
     target_words = target_minutes * words_per_minute
-    scene_count = max(5, round(target_words / words_per_scene))
+    scene_count = max(
+        3,
+        round(target_words / words_per_scene),
+    )
 
-    prompt = f"""
-You are a professional YouTube documentary scriptwriter.
+    minimum_scene_words = int(words_per_scene * 0.9)
+    maximum_scene_words = int(words_per_scene * 1.1)
 
-Write a highly engaging narration script based on the supplied topic.
+    print(
+        f"Writer: celuję w {scene_count} scen "
+        f"po około {words_per_scene} słów."
+    )
 
-CHANNEL:
-Name: {channel.get("name", channel.get("id", "Unknown"))}
-Style: {channel.get("channel_style", "")}
-Visual style: {channel.get("visual_style", "")}
+    outline = generate_outline(
+        topic=topic,
+        channel=channel,
+        language=language,
+        scene_count=scene_count,
+        model=model,
+    )
 
-TOPIC:
+    paragraphs = []
+    previous_scene = "This is the opening scene."
+
+    for index, scene_outline in enumerate(outline, start=1):
+        print(
+            f"Writer: generuję scenę {index}/{scene_count}..."
+        )
+
+        scene_prompt = f"""
+You are writing one scene of a YouTube documentary narration.
+
+CHANNEL STYLE:
+{channel.get("channel_style", "")}
+
+FULL TOPIC:
 {topic}
+
+CURRENT SCENE:
+Scene {index} of {scene_count}
+
+SCENE PURPOSE:
+{scene_outline}
+
+PREVIOUS SCENE CONTEXT:
+{previous_scene[-700:]}
 
 REQUIREMENTS:
 - Language: {language}
-- Target length: approximately {target_words} words
-- Target duration: approximately {target_minutes} minutes
-- Divide the script into approximately {scene_count} visual scenes
-- Each scene must be one natural paragraph
-- Separate every scene using exactly one blank line
-- Each paragraph should contain approximately {words_per_scene} words
-- Start with a powerful hook
+- Write between {minimum_scene_words} and {maximum_scene_words} words
+- Write exactly one natural paragraph
+- Continue the story logically
+- Use vivid and visual descriptions
 - Maintain curiosity and forward momentum
-- Avoid repeating the same information
-- Use vivid, visual descriptions suitable for AI-generated images
-- End with a satisfying conclusion
-- Do not include headings
-- Do not include scene numbers
-- Do not include production instructions
+- Do not include a heading
+- Do not include a scene number
 - Do not include markdown
-- Output only the final narration script
+- Output only the narration paragraph
 """
 
-    script = clean_script(
-        ask_ollama(prompt, model=model)
-    )
-
-    current_words = len(script.split())
-
-    # Jedna próba rozszerzenia, jeśli model zrobił podejrzanie krótki tekst
-    if current_words < target_words * 0.7:
-        print(
-            f"Scenariusz jest za krótki "
-            f"({current_words}/{target_words} słów). Rozszerzam..."
-        )
-
-        expansion_prompt = f"""
-Rewrite and expand the following YouTube narration script.
-
-TARGET:
-- Language: {language}
-- Approximately {target_words} words
-- Approximately {scene_count} paragraphs
-- One visual scene per paragraph
-- Blank line between paragraphs
-- Preserve the topic, narrative logic, tone, and existing facts
-- Improve the hook, tension, transitions, and conclusion
-- Do not add headings or scene numbers
-- Do not use markdown
-- Output only the complete rewritten narration script
-
-SCRIPT:
-{script}
-"""
-
-        script = clean_script(
+        paragraph = clean_script(
             ask_ollama(
-                expansion_prompt,
+                scene_prompt,
                 model=model,
-                temperature=0.65,
+                temperature=0.75,
             )
         )
 
+        # Jedna scena musi być jednym akapitem
+        paragraph = " ".join(paragraph.split())
+
+        # Maksymalnie dwie poprawki konkretnej sceny
+        for attempt in range(2):
+            current_words = len(paragraph.split())
+
+            if current_words >= minimum_scene_words:
+                break
+
+            print(
+                f"Scena {index} jest za krótka "
+                f"({current_words}/{minimum_scene_words}). "
+                f"Rozszerzam — próba {attempt + 1}/2..."
+            )
+
+            expansion_prompt = f"""
+Expand the following narration paragraph.
+
+REQUIREMENTS:
+- Language: {language}
+- Between {minimum_scene_words} and {maximum_scene_words} words
+- Preserve all existing information
+- Add useful visual detail and narrative tension
+- Keep it as exactly one paragraph
+- Do not add headings or scene numbers
+- Output only the expanded paragraph
+
+PARAGRAPH:
+{paragraph}
+"""
+
+            paragraph = clean_script(
+                ask_ollama(
+                    expansion_prompt,
+                    model=model,
+                    temperature=0.65,
+                )
+            )
+
+            paragraph = " ".join(paragraph.split())
+
+        paragraphs.append(paragraph)
+        previous_scene = paragraph
+
+    script = "\n\n".join(paragraphs)
+    final_word_count = len(script.split())
+    minimum_total = int(target_words * 0.9)
+
+    print(
+        f"Writer: wynik końcowy: "
+        f"{final_word_count}/{target_words} słów."
+    )
+
+    if final_word_count < minimum_total:
+        print(
+            f"UWAGA: tekst jest krótszy niż 90% celu "
+            f"({minimum_total} słów)."
+        )
+
     return script
+
+    
 
 
 def main() -> None:

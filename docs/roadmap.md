@@ -7,9 +7,9 @@
 - [x] Video
 
 ## v0.2
-- [ ] Character Memory
-- [ ] Channel Styles
-- [ ] Ollama Director
+- [x] Local Ollama Writer
+- [x] Topic-to-script generation
+- [x] Configurable video duration
 
 ## v0.3
 - [ ] Thumbnail

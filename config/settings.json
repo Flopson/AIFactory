@@ -2,7 +2,7 @@
   "script_mode": "topic",
   "language": "English",
   "target_minutes": 3,
-  "words_per_minute": 145,
+  "words_per_minute": 175,
   "words_per_scene": 110,
   "ollama_model": "llama3.1:8b"
 }
