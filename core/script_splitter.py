@@ -1,34 +1,52 @@
 import json
-from pathlib import Path
+import re
 
-BASE = Path(__file__).resolve().parent.parent
+from core.paths import get_paths
 
-SCRIPT_PATH = BASE / "input" / "script.txt"
-OUTPUT_PATH = BASE / "input" / "scenes.json"
 
-text = SCRIPT_PATH.read_text(encoding="utf-8").strip()
+def main() -> None:
+    paths = get_paths()
 
-# 1 akapit = 1 scena
-paragraphs = [
-    p.strip()
-    for p in text.split("\n\n")
-    if p.strip()
-]
+    if not paths.manifest.is_file():
+        raise FileNotFoundError(f"Brak projektu: {paths.root}")
 
-scenes = []
+    text = paths.script.read_text(
+        encoding="utf-8-sig"
+    ).strip()
 
-for index, paragraph in enumerate(paragraphs, start=1):
-    scenes.append({
-        "scene": index,
-        "text": paragraph,
-        "image_prompt": f"cinematic detailed illustration of: {paragraph}",
-        "duration": None
-    })
+    if not text:
+        raise ValueError(
+            f"Scenariusz jest pusty: {paths.script}"
+        )
 
-OUTPUT_PATH.write_text(
-    json.dumps(scenes, indent=2, ensure_ascii=False),
-    encoding="utf-8"
-)
+    paragraphs = [
+        paragraph.strip()
+        for paragraph in re.split(r"\n\s*\n", text)
+        if paragraph.strip()
+    ]
 
-print(f"Wygenerowano {len(scenes)} scen:")
-print(OUTPUT_PATH)
+    scenes = [
+        {
+            "scene": index,
+            "text": paragraph,
+            "image_prompt": (
+                f"cinematic detailed illustration of: {paragraph}"
+            ),
+            "duration": None,
+        }
+        for index, paragraph in enumerate(paragraphs, start=1)
+    ]
+
+    paths.scenes.write_text(
+        json.dumps(scenes, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    print(f"Projekt: {paths.project_id}")
+    print(
+        f"Wygenerowano {len(scenes)} scen: {paths.scenes}"
+    )
+
+
+if __name__ == "__main__":
+    main()

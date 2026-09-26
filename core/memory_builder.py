@@ -1,20 +1,16 @@
 import json
 import urllib.request
-from pathlib import Path
+from core.paths import get_paths
+from core.config_loader import load_settings
 
 from core.memory import Memory
 
-BASE = Path(__file__).resolve().parent.parent
-
-SCRIPT_PATH = BASE / "input" / "script.txt"
-
 OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
-MODEL = "llama3.1:8b"
 
 
 def ask_ollama(prompt: str) -> str:
     payload = {
-        "model": MODEL,
+        "model": load_settings().get("ollama_model", "llama3.1:8b"),
         "prompt": prompt,
         "stream": False,
         "format": "json",
@@ -122,12 +118,16 @@ SCRIPT:
         return result
 
     except Exception as error:
-        print("Memory Builder fallback:", error)
-        return fallback_memory()
+        raise RuntimeError(f"Nie udało się przygotować pamięci projektu: {error}") from error
 
 
 def main() -> None:
-    script = SCRIPT_PATH.read_text(encoding="utf-8")
+    paths = get_paths()
+    if not paths.manifest.is_file():
+        raise FileNotFoundError(f"Brak projektu: {paths.root}")
+    script = paths.script.read_text(encoding="utf-8-sig").strip()
+    if not script:
+        raise ValueError(f"Scenariusz jest pusty: {paths.script}")
     story_bible = analyse_script(script)
 
     memory = Memory()
@@ -137,7 +137,7 @@ def main() -> None:
     memory.story = story_bible["story"]
     memory.save()
 
-    print("Wygenerowano Story Bible w assets/memory/")
+    print(f"Pamięć projektu {paths.project_id}: {paths.memory_dir}")
 
 
 if __name__ == "__main__":

@@ -1,14 +1,17 @@
 import json
-from pathlib import Path
+from core.paths import ROOT, get_paths
 
 
 class Memory:
 
     def __init__(self):
 
-        self.base = Path(__file__).resolve().parent.parent
+        paths = get_paths()
+        if not paths.manifest.is_file():
+            raise FileNotFoundError(f"Brak projektu: {paths.root}")
 
-        self.memory_dir = self.base / "assets" / "memory"
+        self.base = ROOT
+        self.memory_dir = paths.memory_dir
 
         self.memory_dir.mkdir(parents=True, exist_ok=True)
 

@@ -9,3 +9,8 @@ assets/images/
 output/
 __pycache__/
 *.pyc
+
+# Lokalne projekty filmów
+/projects/
+/config/current_project.txt
+/.venv/

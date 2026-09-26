@@ -1,15 +1,9 @@
 import json
 import re
 import urllib.request
-from pathlib import Path
+from core.paths import get_paths
 
 from core.config_loader import load_current_channel, load_settings
-
-BASE = Path(__file__).resolve().parent.parent
-
-TOPIC_PATH = BASE / "input" / "topic.txt"
-SCRIPT_PATH = BASE / "input" / "script.txt"
-META_PATH = BASE / "input" / "script_meta.json"
 
 OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
 
@@ -269,15 +263,20 @@ PARAGRAPH:
 
 
 def main() -> None:
+    paths = get_paths()
+    if not paths.manifest.is_file():
+        raise FileNotFoundError(f"Brak projektu: {paths.root}")
+
+    print(f"Writer: projekt {paths.project_id}")
     settings = load_settings()
     mode = settings.get("script_mode", "manual").lower()
 
     if mode == "manual":
-        if not SCRIPT_PATH.exists() or not SCRIPT_PATH.read_text(
-            encoding="utf-8"
+        if not paths.script.exists() or not paths.script.read_text(
+            encoding="utf-8-sig"
         ).strip():
             raise FileNotFoundError(
-                "Tryb manualny jest aktywny, ale input/script.txt jest pusty."
+                f"Tryb manualny: brak lub pusty scenariusz {paths.script}"
             )
 
         print("Writer: tryb manualny — pozostawiam istniejący script.txt.")
@@ -289,15 +288,15 @@ def main() -> None:
             "Dozwolone wartości: topic albo manual."
         )
 
-    if not TOPIC_PATH.exists():
+    if not paths.topic.exists():
         raise FileNotFoundError(
-            f"Brak pliku z tematem: {TOPIC_PATH}"
+            f"Brak pliku z tematem: {paths.topic}"
         )
 
-    topic = TOPIC_PATH.read_text(encoding="utf-8").strip()
+    topic = paths.topic.read_text(encoding="utf-8-sig").strip()
 
     if not topic:
-        raise ValueError("input/topic.txt jest pusty.")
+        raise ValueError(f"Plik tematu jest pusty: {paths.topic}")
 
     channel = load_current_channel()
 
@@ -306,11 +305,12 @@ def main() -> None:
 
     script = generate_script(topic, channel, settings)
 
-    SCRIPT_PATH.write_text(script, encoding="utf-8")
+    paths.script.write_text(script, encoding="utf-8")
 
     word_count = len(script.split())
 
     metadata = {
+        "project_id": paths.project_id,
         "topic": topic,
         "channel": channel["id"],
         "language": settings.get("language", "English"),
@@ -319,13 +319,13 @@ def main() -> None:
         "script_mode": mode,
     }
 
-    META_PATH.write_text(
+    paths.script_meta.write_text(
         json.dumps(metadata, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
 
     print(f"Writer: wygenerowano {word_count} słów.")
-    print(f"Scenariusz zapisany: {SCRIPT_PATH}")
+    print(f"Scenariusz zapisany: {paths.script}")
 
 
 if __name__ == "__main__":
