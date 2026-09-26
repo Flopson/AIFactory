@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 import re
+import os
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -22,6 +23,9 @@ def validate_project_id(project_id: str) -> str:
 @dataclass(frozen=True)
 class ProjectPaths:
     project_id: str
+
+    def __post_init__(self):
+        object.__setattr__(self, "project_id", validate_project_id(self.project_id))
 
     @property
     def root(self) -> Path:
@@ -118,6 +122,10 @@ class ProjectPaths:
 
 
 def get_current_project_id() -> str:
+    pinned = os.environ.get("AIFACTORY_PROJECT_ID")
+    if pinned is not None:
+        return validate_project_id(pinned)
+
     if not CURRENT_PROJECT_FILE.exists():
         raise FileNotFoundError(
             "Brak config/current_project.txt. "
@@ -136,6 +144,8 @@ def get_current_project_id() -> str:
 
 def get_paths() -> ProjectPaths:
     paths = ProjectPaths(get_current_project_id())
+    if not paths.manifest.is_file():
+        raise FileNotFoundError(f"Brak projektu: {paths.root}")
     paths.ensure_structure()
     return paths
 
